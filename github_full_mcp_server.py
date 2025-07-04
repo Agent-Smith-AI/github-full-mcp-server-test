@@ -72,7 +72,7 @@ def list_issues(repo_full_name: str, state: str = "open", limit: int = 5, assign
             })
         return results
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
@@ -94,7 +94,7 @@ def create_github_issue(repo_full_name: str, title: str, body: str = "", assigne
         issue = repo.create_issue(title=title, body=body, assignees=assignees, labels=labels if labels else [])
         return {"message": "Issue created successfully!", "title": issue.title, "number": issue.number, "url": issue.html_url}
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
@@ -154,7 +154,7 @@ def list_branches(repo_full_name: str, protected_only: bool = False, limit: int 
                 })
         return results
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
@@ -240,7 +240,7 @@ def create_pull_request(repo_full_name: str, title: str, head: str, base: str, b
             "state": pull.state
         }
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
@@ -270,7 +270,7 @@ def merge_pull_request(repo_full_name: str, pr_number: int, commit_message: str 
             "url": pr.html_url
         }
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
@@ -298,7 +298,7 @@ def add_pull_request_review_comment(repo_full_name: str, pr_number: int, body: s
             "url": comment.html_url
         }
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
@@ -319,7 +319,7 @@ def request_pull_request_review(repo_full_name: str, pr_number: int, reviewers: 
         pr.create_review_request(reviewers=reviewers, team_reviewers=team_reviewers)
         return {"message": "Review request sent successfully!"}
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
@@ -410,7 +410,7 @@ def list_releases(repo_full_name: str, limit: int = 5) -> list[dict]:
             })
         return results
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
@@ -445,7 +445,7 @@ def create_release(repo_full_name: str, tag_name: str, name: str = None, body: s
             "url": release.html_url
         }
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
@@ -473,7 +473,7 @@ def list_workflows(repo_full_name: str, limit: int = 5) -> list[dict]:
             })
         return results
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
@@ -525,7 +525,7 @@ def list_labels(repo_full_name: str, limit: int = 10) -> list[dict]:
             })
         return results
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
@@ -551,7 +551,7 @@ def create_label(repo_full_name: str, name: str, color: str, description: str = 
             "url": label.url
         }
     except (ValueError, GithubException) as e:
-        return {"error": str(e)}
+        return {"error": e.data}
 
 
 @mcp.tool()
